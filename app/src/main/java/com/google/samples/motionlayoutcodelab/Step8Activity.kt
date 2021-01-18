@@ -33,7 +33,20 @@ class Step8Activity : AppCompatActivity() {
     }
 
     private fun coordinateMotion() {
+        val appBarLayout: AppBarLayout = findViewById(R.id.appbar_layout)
+        val motionLayout: MotionLayout = findViewById(R.id.motion_layout)
+        val listener = AppBarLayout.OnOffsetChangedListener { unused, verticalOffset ->
+            val seekPosition = -verticalOffset / appBarLayout.totalScrollRange.toFloat()
+            motionLayout.progress = seekPosition
+        }
+
+        appBarLayout.addOnOffsetChangedListener(listener)
         // TODO: set progress of MotionLayout based on an AppBarLayout.OnOffsetChangedListener
+
+//        The MotionLayout view will be moved partially offscreen when AppBarLayout collapses it.
+    //        It will not be resized, but just moved up. If you have constraints to the top of the
+    //        MotionLayout, they will be offscreen at the end of the animation. To work with
+    //        AppBarLayout ensure end constraints are anchored to the bottom of the parent.
 
     }
 }
